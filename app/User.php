@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'name', 'email', 'password', 'blocked', 'date_blocked', 'created_at', 'updated_at'
     ];
 
     /**
@@ -37,8 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role(){
-        return $this->belongsTo(Role::class);
+    public function roles(){
+        return $this->belongsToMany(Role::class, 'user_roles');
     }
 
     public function permissions(){
@@ -46,10 +46,15 @@ class User extends Authenticatable
     }
 
     public function hasPermissionInRole(Permission $permission){
-        if(!!optional(optional($this->role)->permissions)->contains($permission) === false){
-            return $this->hasPermission($permission);
+        if(!$this->roles)
+            goto out;
+        foreach($this->roles as $role){
+            if(!!optional($role->permissions)->contains($permission)){
+                return true;
+            }
         }
-        return true;
+        out:
+        return $this->hasPermission($permission);
     }
 
     public function hasPermission(Permission $permission){
@@ -58,5 +63,21 @@ class User extends Authenticatable
 
     public function isSuperAdmin(){
         return $this->id === 1;
+    }
+
+    public function paginateCustom(array $where = array()){
+        $query = $this->select($this->fillable);
+        if(array_key_exists('id', $where) && $where['id'] != '')
+            $query->where('id', $where['id']);
+
+        if(array_key_exists('block', $where) && $where['block'] != '')
+            $query->where('blocked', $where['block']);
+
+        if(array_key_exists('name', $where) && $where['name'] != '')
+            $query->where('name', 'like', '%'.$where['name'].'%');
+
+        if(array_key_exists('email', $where) && $where['email'] != '')
+            $query->where('email', 'like', '%'.$where['email'].'%');
+        return $query->paginate(config('app.perPage'));
     }
 }

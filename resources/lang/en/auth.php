@@ -29,5 +29,6 @@ return [
     'forgot_password_msg' => 'You forgot your password? Here you can easily retrieve a new password.',
     'reset_password' => 'Reset Password',
     'forgot_password' => 'Forgot Password',
-    'send_password' => 'Send Password Reset Link'
+    'send_password' => 'Send Password Reset Link',
+    'error_blocked' => 'Your account was blocked!'
 ];

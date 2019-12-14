@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $view = [
+    protected $viewParams = [
         '_title' => 'Admin Control Panel'
     ];
 }

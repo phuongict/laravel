@@ -38,4 +38,10 @@ abstract class Repository implements RepositoryInterface {
     {
         return call_user_func_array("{$this->modelClassName}::find", array($id, $columns));
     }
+    public function paginateCustom(array $where = array()){
+        return call_user_func_array([
+            new $this->modelClassName(),
+            'paginateCustom'], [$where]
+        );
+    }
 }

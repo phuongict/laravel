@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('_title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,12 +11,15 @@
     <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/select2/css/select2.min.css') }}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/jqvmap/jqvmap.min.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/jqvmap/jqvmap.min.css') }}">--}}
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('/vendor/adminlte/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -28,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="sidebar-mini layout-fixed control-sidebar-slide-open text-sm">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light text-sm">
@@ -709,11 +713,39 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            @if(isset($breadcrumb) && is_array($breadcrumb))
+                                @if(array_key_exists('_routeIndex', $breadcrumb))
+                                    <li class="breadcrumb-item"><a href="{{ route($breadcrumb['_routeIndex']) }}">{{ $breadcrumb['_routeIndexName']??__('user.undefined_route_name') }}</a></li>
+                                @endif
+                                @if(array_key_exists('_action', $breadcrumb))
+                                    <li class="breadcrumb-item active">{{ $breadcrumb['_action'] }}</li>
+                                @endif
+                            @endisset
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
+                @if ($success->any())
+                    @foreach ($success->all() as $sc)
+                        <div class="alert alert-success">
+                            {{ $sc }}
+                        </div>
+                    @endforeach
+                @endif
+                @if ($warnings->any())
+                    @foreach ($warnings->all() as $warning)
+                        <div class="alert alert-warning">
+                            {{ $warning }}
+                        </div>
+                    @endforeach
+                @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
@@ -753,15 +785,18 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('/vendor/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- SweetAlert2 -->
+<script src="{{ asset('/vendor/adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('/vendor/adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- ChartJS -->
-<script src="{{ asset('/vendor/adminlte/plugins/chart.js/Chart.min.js') }}"></script>
+{{--<script src="{{ asset('/vendor/adminlte/plugins/chart.js/Chart.min.js') }}"></script>--}}
 <!-- Sparkline -->
-<script src="{{ asset('/vendor/adminlte/plugins/sparklines/sparkline.js') }}"></script>
+{{--<script src="{{ asset('/vendor/adminlte/plugins/sparklines/sparkline.js') }}"></script>--}}
 <!-- JQVMap -->
-<script src="{{ asset('/vendor/adminlte/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ asset('/vendor/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+{{--<script src="{{ asset('/vendor/adminlte/plugins/jqvmap/jquery.vmap.min.js') }}"></script>--}}
+{{--<script src="{{ asset('/vendor/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>--}}
 <!-- jQuery Knob Chart -->
-<script src="{{ asset('/vendor/adminlte/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+{{--<script src="{{ asset('/vendor/adminlte/plugins/jquery-knob/jquery.knob.min.js') }}"></script>--}}
 <!-- daterangepicker -->
 <script src="{{ asset('/vendor/adminlte/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('/vendor/adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
@@ -773,8 +808,9 @@
 <script src="{{ asset('/vendor/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/vendor/adminlte/dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('/js/backend.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('/vendor/adminlte/dist/js/pages/dashboard.js') }}"></script>
+{{--<script src="{{ asset('/vendor/adminlte/dist/js/pages/dashboard.js') }}"></script>--}}
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{{ asset('/vendor/adminlte/dist/js/demo.js') }}"></script>--}}
 </body>

@@ -16,7 +16,7 @@ class BroadCastController extends Controller
      */
     public function index()
     {
-//        event(new EventNotification(Auth::user(), "hello moto"));
+        event(new EventNotification(Auth::user(), "hello moto"));
         return view('home');
     }
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('frontends.layouts.app')
 
 @section('content')
     <div class="container">
@@ -14,7 +14,6 @@
                     </div>
                     <div class="card-body login-card-body">
                         <p class="login-box-msg">{{ __('auth.login_message') }}</p>
-
                         <form action="" method="post">
                             @csrf
                             <div class="input-group mb-3">

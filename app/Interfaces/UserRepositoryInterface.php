@@ -9,5 +9,5 @@
 namespace App\Interfaces;
 
 interface UserRepositoryInterface extends RepositoryInterface{
-    public function getByMail($email);
+    public function createUser(array $array);
 }

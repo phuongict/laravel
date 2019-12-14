@@ -10,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('_title')</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/fontawesome-free/css/all.min.css') }}">
@@ -246,8 +246,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <div class="content">
+        <div class="content" id="app">
+            <div class="container">
+                @if(session()->has('success'))
+                    @foreach (session()->get('success') as $success)
+                        <div class="alert alert-success">
+                            {{ $success }}
+                        </div>
+                    @endforeach
+                @endif
+
+                @if(session()->has('warnings'))
+                    @foreach (session()->get('warnings') as $warning)
+                        <div class="alert alert-warning">
+                            {{ $warning }}
+                        </div>
+                    @endforeach
+                @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
                 @yield('content')
+            </div>
                 <!-- /.row -->
         </div>
         <!-- /.content -->

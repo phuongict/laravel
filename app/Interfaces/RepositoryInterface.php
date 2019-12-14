@@ -9,9 +9,10 @@
 namespace App\Interfaces;
 
 interface RepositoryInterface {
-    public function all($columns = array('*'));
+    public function all(array $columns = array('*'));
     public function create(array $attributes);
     public function update($id, array $array);
     public function destroy($id);
-    public function find($id, $columns = array('*'));
+    public function find($id, array $columns = array('*'));
+    public function paginateCustom(array $where = array());
 }
