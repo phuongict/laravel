@@ -14,4 +14,13 @@ class Controller extends BaseController
     protected $viewParams = [
         '_title' => 'Admin Control Panel'
     ];
+
+    protected function setTitle($title)
+    {
+        $this->viewParams['_title'] = $title;
+    }
+    protected function setBreadcrumb(array $array)
+    {
+        $this->viewParams['breadcrumb'] = $array;
+    }
 }

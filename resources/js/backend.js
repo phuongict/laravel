@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('user-index', require('./components/backend/users/index').default);
+Vue.component('sort-menu', require('./components/backend/menus/SortMenu').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

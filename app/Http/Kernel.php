@@ -38,7 +38,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\ShareWarningsFromSession::class,
             \App\Http\Middleware\ShareSuccessFromSession::class,
             \App\Http\Middleware\CheckUserBlocked::class,
-
         ],
 
         'api' => [

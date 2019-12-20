@@ -37,8 +37,20 @@ class UserRequest extends FormRequest
                     return [
                         'name' => 'required|string|max:255',
                         'email' => 'required|string|email|max:255|unique:users',
-                        'password' => 'required|string|min:|confirmed'
+                        'password' => 'required|string|min:8|confirmed'
                     ];
+                break;
+            case 'update':
+                return [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:255|unique:users,id,'.$this->route('id')
+                ];
+                break;
+            case 'saveChangePassword':
+                return [
+                    'your_password' => 'required|string|min:8',
+                    'password' => 'required|string|min:8|confirmed'
+                ];
                 break;
             default:
                 return [

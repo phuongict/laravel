@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -228,5 +228,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
-    'perPage' => 20
+    'perPage' => 20,
+    'menu_type' => [0 => 'Route', 1 => 'Link'],
+    'menu_location' => [0 => 'Backend', 1 => 'Frontend'],
+    'menu_status' => [0 => 'Hide', 1 => 'Show']
 ];

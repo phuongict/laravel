@@ -1,5 +1,6 @@
 @extends('backends.layouts.app')
 @section('_title', $_title)
+@section('page_name', $_title)
 @section('content')
     <div class="card">
         <div class="card-header">

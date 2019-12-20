@@ -1,23 +1,32 @@
 @extends('backends.layouts.app')
 @section('_title', $_title)
+@section('page_name', $_title)
 @section('content')
     <div class="card">
         <div class="card-body">
             <form action="" method="get">
                 <div class="row">
-                    <div class="col-md-2 col-sm-3 ">
-                        <input type="number" placeholder="ID" name="id" class="form-control">
+                    <div class="col-md-3 col-sm-4 ">
+                        <div class="form-group">
+                            <input type="number" value="{{ old('id') }}" placeholder="ID" name="id" class="form-control form-control-sm">
+                        </div>
                     </div>
-                    <div class="col-md-2 col-sm-3 ">
-                        <input type="text" placeholder="name" name="name" class="form-control">
+                    <div class="col-md-3 col-sm-4 ">
+                        <div class="form-group">
+                            <input type="text" placeholder="name" value="{{ old('name') }}" name="name" class="form-control form-control-sm">
+                        </div>
                     </div>
-                    <div class="col-md-2 col-sm-3 ">
-                        <input type="text" placeholder="email" name="email" class="form-control">
+                    <div class="col-md-3 col-sm-4 ">
+                        <div class="form-group">
+                            <input type="text" placeholder="email" value="{{ old('email') }}" name="email" class="form-control form-control-sm">
+                        </div>
                     </div>
-                    <div class="col-md-6 col-sm-3 ">
-                        <button class="btn btn-primary btn-sm"><i class="fa fa-search"></i> {{ __('all.search') }}</button>
-                        <a class="btn btn-default btn-sm" href="{{  url()->current() }}"> {{ __('all.clear') }}</a>
-                        <a class="btn btn-info btn-sm" href="{{  route('backend.user.create') }}"> {{ __('all.add_new') }}</a>
+                    <div class="col-md-3 col-sm-12 text-center">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-sm"><i class="fa fa-search"></i> {{ __('all.search') }}</button>
+                            <a class="btn btn-default btn-sm" href="{{  url()->current() }}"> {{ __('all.clear') }}</a>
+                            <a class="btn btn-info btn-sm" href="{{  route('backend.user.create') }}"> {{ __('all.add_new') }}</a>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -35,7 +44,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Roles</th>
-                    <th>Blocked</th>
                     <th>Create at</th>
                     <th>Action</th>
                 </tr>
@@ -51,19 +59,22 @@
                                 {{ implode(',', $item->roles->map(function($item) { return $item->name; })->toArray()) }}
                             </td>
                             <td>
-                                <button type="button" class="btn btn-default btn-sm" v-on:click="$refs.user_index.changeStatus(JSON.stringify({{ $item }}))">
-                                    @if($item->blocked)
-                                        <i class="fa fa-lock" style="color: red;"></i> {{ __('user.blocked') }}
-                                    @else
-                                        <i class="fa fa-unlock" style="color: green;"></i> {{ __('user.open') }}
-                                    @endif
-                                </button>
-                            </td>
-                            <td>
                                 {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}
                             </td>
                             <td>
-                                <a href="{{ route('backend.user.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
+                                <div class="action-grid">
+                                    <a href="{{ route('backend.user.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
+                                    <button type="button" class="btn btn-link" style="padding: 0;" v-on:click="$refs.user_index.changeStatus(JSON.stringify({{ $item }}))">
+                                        @if($item->blocked)
+                                            <i class="fa fa-lock" style="color: red;"></i>
+                                        @else
+                                            <i class="fa fa-unlock" style="color: green;"></i>
+                                        @endif
+                                    </button>
+                                    <a href="{{ route('backend.user.edit-permission', ['id' => $item->id]) }}"><i class="fa fa-tasks" style="color: orangered;"></i></a>
+                                    <a href="{{ route('backend.user.show', ['id' => $item->id]) }}"><i class="fa fa-user"></i></a>
+                                    <a href="{{ route('backend.user.change-password-user', ['id' => $item->id]) }}"><i class="fa fa-key"></i></a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -72,7 +83,7 @@
             </table>
         </div>
         <div class="card-footer">
-            {{ $lists->appends($requestParams)->links() }}
+            {{ $lists->appends(request()->input())->links() }}
         </div>
     </div>
     <user-index ref="user_index"></user-index>

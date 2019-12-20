@@ -11,8 +11,14 @@ namespace App\Repositories;
 
 use App\Abstracts\Repository;
 use App\Interfaces\RoleRepositoryInterface;
+use App\Role;
 
 class RoleRepository extends Repository implements RoleRepositoryInterface
 {
+    protected $modelClassName = '\\App\\Role';
 
+    public function setPermissions(Role $role, array $permissions = []) : void
+    {
+        $role->permissions()->sync($permissions);
+    }
 }

@@ -19,6 +19,19 @@ class Role extends Model
     }
 
     public function permissions(){
-        return $this->belongsToMany(Permission::class, 'role_permissions', 'permission_id', 'role_id');
+        return $this->belongsToMany(
+            Permission::class,
+            'role_permissions')
+            ->withTimestamps();
+    }
+
+    public function paginateCustom(array $where = array()){
+        $query = $this->select($this->fillable);
+        if(array_key_exists('id', $where) && $where['id'] != '')
+            $query->where('id', $where['id']);
+
+        if(array_key_exists('name', $where) && $where['name'] != '')
+            $query->where('name', 'like', '%'.$where['name'].'%');
+        return $query->paginate(config('app.perPage'));
     }
 }
