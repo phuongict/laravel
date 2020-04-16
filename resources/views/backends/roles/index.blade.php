@@ -32,37 +32,38 @@
             <h3 class="card-title">{{ $_title }}</h3>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th style="width: 10px">#ID</th>
-                    <th>Name</th>
-                    <th>Created at</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @if(isset($lists) && $lists->count() > 0)
-                    @foreach($lists as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>
-                                {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}
-                            </td>
-                            <td>
-                                <a href="{{ route('backend.role.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
-                                <a href="{{ route('backend.role.delete', ['id' => $item->id]) }}"><i class="fa fa-trash" style="color: red;"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="width: 10px">#ID</th>
+                        <th>Name</th>
+                        <th>Created at</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(isset($lists) && $lists->count() > 0)
+                        @foreach($lists as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>
+                                    {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('backend.role.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('backend.role.delete', ['id' => $item->id]) }}"><i class="fa fa-trash" style="color: red;"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer">
             {{ $lists->appends(request()->input())->links() }}
         </div>
     </div>
-    <user-index ref="user_index"></user-index>
 @endsection

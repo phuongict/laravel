@@ -1,5 +1,6 @@
 {
     "/js/backend.js": "/js/backend.js",
     "/css/custom.css": "/css/custom.css",
+    "/css/frontend.css": "/css/frontend.css",
     "/js/frontend.js": "/js/frontend.js"
 }

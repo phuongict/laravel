@@ -37,33 +37,33 @@
             <h3 class="card-title">{{ $_title }}</h3>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th style="width: 10px">#ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Roles</th>
-                    <th>Create at</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @if(isset($lists) && $lists->count() > 0)
-                    @foreach($lists as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->email }}</td>
-                            <td>
-                                {{ implode(',', $item->roles->map(function($item) { return $item->name; })->toArray()) }}
-                            </td>
-                            <td>
-                                {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}
-                            </td>
-                            <td>
-                                <div class="action-grid">
-                                    <a href="{{ route('backend.user.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="width: 10px">#ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Create at</th>
+                        <th>Block</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(isset($lists) && $lists->count() > 0)
+                        @foreach($lists as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>
+                                    {{ implode(',', $item->roles->map(function($item) { return $item->name; })->toArray()) }}
+                                </td>
+                                <td>
+                                    {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}
+                                </td>
+                                <td>
                                     <button type="button" class="btn btn-link" style="padding: 0;" v-on:click="$refs.user_index.changeStatus(JSON.stringify({{ $item }}))">
                                         @if($item->blocked)
                                             <i class="fa fa-lock" style="color: red;"></i>
@@ -71,16 +71,21 @@
                                             <i class="fa fa-unlock" style="color: green;"></i>
                                         @endif
                                     </button>
-                                    <a href="{{ route('backend.user.edit-permission', ['id' => $item->id]) }}"><i class="fa fa-tasks" style="color: orangered;"></i></a>
-                                    <a href="{{ route('backend.user.show', ['id' => $item->id]) }}"><i class="fa fa-user"></i></a>
-                                    <a href="{{ route('backend.user.change-password-user', ['id' => $item->id]) }}"><i class="fa fa-key"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-                </tbody>
-            </table>
+                                </td>
+                                <td>
+                                    <div class="action-grid">
+                                        <a href="{{ route('backend.user.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('backend.user.edit-permission', ['id' => $item->id]) }}"><i class="fa fa-tasks" style="color: orangered;"></i></a>
+                                        <a href="{{ route('backend.user.show', ['id' => $item->id]) }}"><i class="fa fa-user"></i></a>
+                                        <a href="{{ route('backend.user.change-password-user', ['id' => $item->id]) }}"><i class="fa fa-key"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer">
             {{ $lists->appends(request()->input())->links() }}

@@ -1,0 +1,46 @@
+$xlarge-devices-width: 1200px;
+$large-devices-width: 992px;
+$medium-devices-width: 768px;
+$small-devices-width: 576px;
+@mixin xlarge-devices{
+    @media (min-width: #{$xlarge-devices-width}){
+        @content
+    }
+}
+@mixin large-devices{
+    @media (min-width: #{$large-devices-width}) and (max-width: #{$xlarge-devices-width - 1px}) {
+        @content
+    }
+}
+@mixin medium-devices{
+    @media (min-width: #{$medium-devices-width}) and (max-width: #{$large-devices-width - 1px}) {
+        @content
+    }
+}
+@mixin small-devices{
+    @media (min-width: #{$small-devices-width}) and (max-width: #{$medium-devices-width - 1px}) {
+        @content
+    }
+}
+@mixin extra-small-devices{
+    @media (max-width: #{$small-devices-width - 1px}){
+        @content
+    }
+}
+.hero-slider-two .hero-slider-item{
+    height: auto;
+}
+.hero-slider-item img{
+    width: 100%;
+    height: 510px;
+    object-fit: cover;
+    @include medium-devices{
+        height: 410px;
+    }
+    @include small-devices{
+        height: 310px;
+    }
+    @include extra-small-devices{
+        height: 210px;
+    }
+}

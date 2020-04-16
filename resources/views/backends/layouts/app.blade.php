@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="{{ asset('/vendor/adminlte/plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/custom.css?v=3') }}">
     @yield('css')
 </head>
 <body class="sidebar-mini layout-fixed control-sidebar-slide-open text-sm">
@@ -48,7 +48,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
+                <a href="{{ route('backend.index') }}" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
@@ -160,7 +160,7 @@
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }} <span class="caret"></span>
+                    <span class="d-none d-sm-inline-block">{{ Auth::user()->name }}</span> <span class="caret"></span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -205,14 +205,13 @@
                     <img src="{{ asset('/vendor/adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
                          alt="User Image">
                 </div>
-                <div class="info">
+                <div class="info dropdown">
                     <a href="#" class="d-block">{{ auth()->user()->name }}</a>
                 </div>
             </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-flat nav-legacy nav-compact nav-child-indent"
+                <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent"
                     data-widget="treeview" role="menu" data-accordion="false">
                     {!! $buildTreeMenu !!}
                 </ul>
@@ -233,7 +232,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('backend.index') }}">Home</a></li>
                             @if(isset($breadcrumb) && is_array($breadcrumb))
                                 @if(array_key_exists('_routeIndex', $breadcrumb))
                                     <li class="breadcrumb-item"><a
@@ -332,7 +331,8 @@
 <script src="{{ asset('/vendor/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/vendor/adminlte/dist/js/adminlte.js') }}"></script>
-<script src="{{ asset('/js/backend.js') }}" defer></script>
+<script src="{{ asset('/js/main.js') }}" defer></script>
+<script src="{{ asset('/js/backend.js?v=10') }}" defer></script>
 @yield('script')
 <script>
     $(function () {

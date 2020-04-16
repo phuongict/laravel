@@ -1,0 +1,29 @@
+.hero-slider-two .hero-slider-item {
+  height: auto;
+}
+
+.hero-slider-item img {
+  width: 100%;
+  height: 510px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .hero-slider-item img {
+    height: 410px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .hero-slider-item img {
+    height: 310px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-slider-item img {
+    height: 210px;
+  }
+}
+

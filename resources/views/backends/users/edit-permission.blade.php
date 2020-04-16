@@ -16,6 +16,7 @@
 
         .daredevel-tree li {
             border-left: 1px dashed #000000;
+            padding-left: 20px;
         }
     </style>
 @endsection

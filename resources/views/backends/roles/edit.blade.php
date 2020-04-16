@@ -16,6 +16,7 @@
 
         .daredevel-tree li {
             border-left: 1px dashed #000000;
+            padding-left: 20px;
         }
     </style>
 @endsection
@@ -29,7 +30,7 @@
                 @csrf
                 <div class="row">
                     <div class="sticky-top p-2 bg-white mb-1"
-                         style="box-shadow: 0 1px 0 0 rgba(0,0,0,0.16), 0 2px 0px 0 rgba(0,0,0,0.12);">
+                         style="box-shadow: 0 1px 0 0 rgba(0,0,0,0.16), 0 2px 0px 0 rgba(0,0,0,0.12);width: 100%;">
                         <button class="btn btn-info btn-sm" id="checkAll"><i class="fa fa-check"></i> Check all</button>
                         <button type="submit" id="btnSave" class="btn btn-success btn-sm"><i
                                 class="fa fa-save"></i> {{ __('all.save') }}</button>

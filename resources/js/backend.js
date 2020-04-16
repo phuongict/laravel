@@ -20,6 +20,10 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('user-index', require('./components/backend/users/index').default);
+Vue.component('post-index', require('./components/backend/posts/index').default);
+Vue.component('product-index', require('./components/backend/products/index').default);
+Vue.component('order-index', require('./components/backend/order/index').default);
+Vue.component('slide-index', require('./components/backend/slides/index').default);
 Vue.component('sort-menu', require('./components/backend/menus/SortMenu').default);
 
 /**

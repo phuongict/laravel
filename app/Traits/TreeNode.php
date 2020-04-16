@@ -26,7 +26,7 @@ trait TreeNode{
             {
                 $checked = $listPermissionsUser->contains($item)?'checked':'';
                 $findChild = $listPermissions->filter(function($childItem) use ($item) {
-                   return $childItem->parent === $item->id;
+                   return $childItem->parent == $item->id;
                 });
                 $collapse = $findChild->isNotEmpty()?'class="collapsed"':'';
                 $tree[] = '<li '.$collapse.'>';

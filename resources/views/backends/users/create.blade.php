@@ -10,7 +10,7 @@
             <form action="{{ route('backend.user.store') }}" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-sm-6 offset-3">
+                    <div class="col-sm-6 offset-sm-3">
                         <div class="form-group">
                             <label for="name">{{ __('user.name') }}</label>
                             <input type="text" name="name" value="{{ old('name') }}"

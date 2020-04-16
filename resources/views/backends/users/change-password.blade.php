@@ -10,7 +10,7 @@
             <form action="{{ route('backend.user.save-change-password') }}" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-sm-6 offset-3">
+                    <div class="col-sm-6 offset-sm-3">
                         <div class="form-group">
                             <label for="your_password">{{ __('user.input_your_password') }}</label>
                             <input type="password" name="your_password" value="{{ old('your_password') }}"

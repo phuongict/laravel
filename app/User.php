@@ -37,15 +37,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles(){
+    public function roles()
+    {
         return $this->belongsToMany(Role::class, 'user_roles')->withTimestamps();
     }
 
-    public function permissions(){
+    public function permissions()
+    {
         return $this->belongsToMany(Permission::class, 'user_permissions')->withTimestamps();
     }
 
-    public function hasPermissionInRole(Permission $permission){
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'created_by', 'id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class, 'created_by', 'id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'created_by', 'id');
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'created_by', 'id');
+    }
+    public function productCategories()
+    {
+        return $this->hasMany(ProductCategory::class, 'created_by', 'id');
+    }
+
+
+    public function hasPermissionInRole(Permission $permission)
+    {
         if(!$this->roles)
             goto out;
         foreach($this->roles as $role){
@@ -61,11 +88,13 @@ class User extends Authenticatable
         return !!optional($this->permissions)->contains($permission);
     }
 
-    public function isSuperAdmin(){
+    public function isSuperAdmin()
+    {
         return $this->id === 1;
     }
 
-    public function paginateCustom(array $where = array()){
+    public function paginateCustom(array $where = array())
+    {
         $query = $this->select($this->fillable);
         if(array_key_exists('id', $where) && $where['id'] != '')
             $query->where('id', $where['id']);

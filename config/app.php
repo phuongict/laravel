@@ -231,5 +231,16 @@ return [
     'perPage' => 20,
     'menu_type' => [0 => 'Route', 1 => 'Link'],
     'menu_location' => [0 => 'Backend', 1 => 'Frontend'],
-    'menu_status' => [0 => 'Hide', 1 => 'Show']
+    'menu_status' => [0 => 'Hide', 1 => 'Show'],
+    'path_category_image' => 'categories',
+    'path_slide_image' => 'slides',
+    'path_post_image' => 'posts',
+    'path_product_image' => 'products',
+    'path_product_gallery' => 'galleries',
+    'path_product_category_image' => 'product-categories',
+    'product_status' => [0 => 'Hide', 1 => 'Show', 2 => 'Sold out'],
+    'order_status' => [0 => 'Waiting', 1 => 'Processing', 2 => 'Shipping', 3 => 'Delivered', 4 => 'Cancel'],
+    'payment' => [0 => 'Payment on delivery', 1 => 'Bank transfer'],
+    'ship' => [0 => 'Quick ship', 1 => 'Slow ship'],
+
 ];

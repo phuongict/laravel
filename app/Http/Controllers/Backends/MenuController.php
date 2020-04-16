@@ -79,6 +79,10 @@ class MenuController extends Controller
                 $this->menuRepository->create($request->except('_token'));
             });
         } catch (\Exception $e) {
+            echo '<pre>'.__FILE__.'::'.__METHOD__.'('.__LINE__.')<br>';
+                print_r($e->getMessage());
+            echo '</pre>';
+            die();
             $this->messageBag->add('errors', trans('all.create_error', ['name' => 'menu']));
             return redirect()
                 ->route($this->routeNames['create'])
@@ -113,8 +117,7 @@ class MenuController extends Controller
             $this->permissionRepository->all(['id', 'name', 'parent']),
             $tree,
             '',
-            old('permission_id')??$this->viewParams['objItem']->permission_id,
-            $id
+            old('permission_id')??$this->viewParams['objItem']->permission_id
         );
         $this->viewParams['listPermission'] = implode('', $tree);
         return view($this->viewPaths['edit'], $this->viewParams);

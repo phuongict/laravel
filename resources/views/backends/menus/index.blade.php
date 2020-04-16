@@ -47,51 +47,53 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th style="width: 10px">#ID</th>
-                    <th>Name</th>
-                    <th>Value</th>
-                    <th>Type</th>
-                    <th>Parent</th>
-                    <th>Order</th>
-                    <th>Icon</th>
-                    <th>Status</th>
-                    <th>Location</th>
-                    <th>Permission</th>
-                    <th>Create at</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @if(isset($lists) && $lists->count() > 0)
-                    @foreach($lists as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->value }}</td>
-                            <td>
-                                {{ config('app.menu_type')[$item->type] }}
-                            </td>
-                            <td>{{ $item->parent_name }}</td>
-                            <td>{{ $item->order }}</td>
-                            <td>{{ $item->icon }}</td>
-                            <td>{{ config('app.menu_status')[$item->status] }}</td>
-                            <td>{{ config('app.menu_location')[$item->location] }}</td>
-                            <td>{{ $item->permission->name }}</td>
-                            <td>
-                                {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}
-                            </td>
-                            <td>
-                                <a href="{{ route('backend.menu.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
-                                <a href="{{ route('backend.menu.delete', ['id' => $item->id]) }}"><i class="fa fa-trash" style="color:red;"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="width: 10px">#ID</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Type</th>
+                        <th>Parent</th>
+                        <th>Order</th>
+                        <th>Icon</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Permission</th>
+                        <th>Create at</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(isset($lists) && $lists->count() > 0)
+                        @foreach($lists as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->value }}</td>
+                                <td>
+                                    {{ config('app.menu_type')[$item->type] }}
+                                </td>
+                                <td>{{ $item->parent_name }}</td>
+                                <td>{{ $item->order }}</td>
+                                <td>{{ $item->icon }}</td>
+                                <td>{{ config('app.menu_status')[$item->status] }}</td>
+                                <td>{{ config('app.menu_location')[$item->location] }}</td>
+                                <td>{{ $item->permission->name }}</td>
+                                <td>
+                                    {{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('backend.menu.edit', ['id' => $item->id]) }}"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('backend.menu.delete', ['id' => $item->id]) }}"><i class="fa fa-trash" style="color:red;"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer">
             {{ $lists->appends(request()->input())->links() }}

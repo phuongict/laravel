@@ -6,6 +6,13 @@
  * Date: 04/12/2019
  * Time: 09:44
  */
-function test(){
-    return 'halo';
+//y-m-d=>d/m/y
+function convertDate($date)
+{
+    return implode('/', array_reverse(explode('-', $date)));
+}
+//y-m-d h:i:s=>d/m/y h:i:s
+function convertDatetime($datetime)
+{
+    return date('d/m/Y H:i:s', strtotime($datetime));
 }

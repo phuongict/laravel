@@ -117,7 +117,7 @@
                     for(let item of data){
                         if(typeof item === 'undefined')
                             continue;
-                        if(item.parent === parent_id){
+                        if(parseInt(item.parent) === parent_id){
                             child.push(item);
                             delete data[data.indexOf(item)];
                         }
@@ -125,7 +125,7 @@
                 }
                 if(child.length > 0){
                     for(let item of child){
-                        if(data.filter(x => x.parent === item.id, item).length>0){
+                        if(data.filter(x => parseInt(x.parent) === parseInt(item.id), item).length>0){
                             this.data.push(`<li class="dd-item" data-id="${item.id}">`);
                             this.data.push(`<button data-action="collapse" type="button">Collapse</button>`);
                             this.data.push(`<button data-action="expand" type="button" style="display: none;">Expand</button>`);

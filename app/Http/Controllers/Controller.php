@@ -23,4 +23,8 @@ class Controller extends BaseController
     {
         $this->viewParams['breadcrumb'] = $array;
     }
+    protected function saveImageFile($file, $folder){
+        $fileName = time().'_'.$file->getClientOriginalName();
+        return $file->storeAs($folder, $fileName, 'public');
+    }
 }
